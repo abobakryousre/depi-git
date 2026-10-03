@@ -19,6 +19,8 @@ jobs:
   DockerLogin:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Docker 
+        uses: docker/setup-docker-action@v5.5.0
       - name: Login to docker
         run: |
-          echo '${{secrets.dockerUser}}'
+          echo '${{ secrets.dockerPassword }} | docker login -u ${{ secrets.dockerUser }} --password-stdin'

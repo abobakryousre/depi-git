@@ -21,6 +21,7 @@ jobs:
     steps:
       - name: Setup Docker 
         uses: docker/setup-docker-action@v5.5.0
+      - uses: actions/checkout@v4
       - name: Login to docker
         run: |
           echo '${{ secrets.dockerPassword }} | docker login -u ${{ secrets.dockerUser }} --password-stdin'

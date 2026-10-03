@@ -16,3 +16,9 @@ jobs:
       
     - name: list code
       run: ls -l
+  DockerLogin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to docker
+        run: |
+          echo '${{secrets.dockerUser}}'

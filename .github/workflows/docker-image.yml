@@ -24,3 +24,5 @@ jobs:
       - name: Login to docker
         run: |
           echo '${{ secrets.dockerPassword }} | docker login -u ${{ secrets.dockerUser }} --password-stdin'
+          docker build . -t abobakryousre/first-app
+          docker push abobakryousre/first-app

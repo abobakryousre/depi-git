@@ -24,6 +24,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Login to docker
         run: |
-          echo '${{ secrets.dockerPassword }} | docker login -u ${{ secrets.dockerUser }} --password-stdin'
           docker build . -t abobakryousre/first-app
+          echo "image created"
+          echo '${{ secrets.dockerPassword }} | docker login -u ${{ secrets.dockerUser }} --password-stdin'
           docker push abobakryousre/first-app

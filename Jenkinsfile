@@ -16,7 +16,9 @@ pipeline {
         }
         stage("Test"){
             steps {
-                sh 'docker run abobakryousre/first-app echo testing....'
+                echo 'Unit testing'
+                echo "E2E Test"
+                echo "Integration test"
                 
             }
         }

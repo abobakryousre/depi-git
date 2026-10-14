@@ -19,19 +19,30 @@ pipeline {
                 stage("Unit Testt"){
                     steps {
                         echo "Unit tetst"
-                        sh 'sleep 30'
+                        sh 'sleep 3'
                     }
                 }
                 stage("Integration Test"){
                     steps {
                         echo "Intgration tetst"
-                        sh 'sleep 30'
+                        sh 'sleep 5'
                     }
                 }
                 stage("E2E Test"){
-                    steps {
-                        echo "E2E test"
-                        sh 'sleep 30'
+                    stages {
+                        stage("Test Backend") {
+                            steps    {
+                                echo "testing backend"
+                                sh 'sleep 2'
+                            }
+                        }
+                        stage("Test Database"){
+                            steps {
+                                echo "testing database"
+                                sh 'sleep 2'
+                                
+                            }
+                        }
                     }
                 }
             }

@@ -1,0 +1,45 @@
+name: CI_Pieline
+
+on:
+  push:
+    branches: 
+      - "*"
+
+
+jobs:
+
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      run: echo "hello from github action"
+      
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: echo  "Build docker image"
+        
+  UnitTest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit Test
+        run: echo  "running unit test"
+        
+  IntegratTest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit Test
+        run: echo  "Integration test"
+        
+  E2ETest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit Test
+        run: echo  "E2E test"
+        
+  Release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit Test
+        run: echo  "Release"

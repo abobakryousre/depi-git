@@ -14,13 +14,28 @@ pipeline {
                 sh 'docker build . -t abobakryousre/first-app'
             }
         }
-        stage("Test"){
-            steps {
-                echo 'Unit testing'
-                echo "E2E Test"
-                echo "Integration test"
-                
+        stage("Testing"){
+            parallel {
+                stage("Unit Testt"){
+                    steps {
+                        echo "Unit tetst"
+                        sh 'sleep 30'
+                    }
+                }
+                stage("Integration Test"){
+                    steps {
+                        echo "Intgration tetst"
+                        sh 'sleep 30'
+                    }
+                }
+                stage("E2E Test"){
+                    steps {
+                        echo "E2E test"
+                        sh 'sleep 30'
+                    }
+                }
             }
+         
         }
         // stage("Release"){
         //     steps {

@@ -4,6 +4,7 @@ on:
   push:
     branches: 
       - "*"
+  workflow_dispatch:
 
 
 jobs:
@@ -12,34 +13,58 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
-      run: echo "hello from github action"
+      uses: actions/checkout@v6.1.0
+      
+    - name: list code
+      run: ls 
+        
       
   build:
+    needs: checkout
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Build
-        run: echo  "Build docker image"
+      - name: checkuot code
+        uses: actions/checkout@v6.1.0
+        
+      - name: Build Docker image
+        run: |
+          docker build . -t abobakryousre/first-app
         
   UnitTest:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Unit Test
         run: echo  "running unit test"
         
   IntegratTest:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Unit Test
         run: echo  "Integration test"
         
   E2ETest:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Unit Test
         run: echo  "E2E test"
         
   Release:
+    needs: 
+      - E2ETest
+      - IntegratTest
+      - UnitTest
     runs-on: ubuntu-latest
     steps:
-      - name: Unit Test
-        run: echo  "Release"
+      - name: checkuot code
+        uses: actions/checkout@v6.1.0
+        
+      - name: Build Docker image
+        run: docker build . -t abobakryousre/first-app
+      - name: Release
+        run: |
+          echo ${{ secrets.DOCKERPASSWORD }} | docker login -u abobakryousre@gmail.com --password-stdin
+          docker push abobakryousre/first-app

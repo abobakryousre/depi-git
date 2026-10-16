@@ -27,6 +27,7 @@ jobs:
         run: |
           docker build . -t abobakryousre/first-app
           
+      - uses: docker/scout-action@v1.26.0    
       - name: Scan Docker Image
         run: |
           echo ${{ secrets.DOCKERPASSWORD }} | docker login -u abobakryousre@gmail.com --password-stdin

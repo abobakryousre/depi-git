@@ -15,56 +15,62 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v6.1.0
       
-    - name: list code
-      run: ls 
-        
-      
-  build:
-    needs: checkout
-    runs-on: ubuntu-latest
+    - name: Official SonarQube Scan
+  # You may pin to the exact commit or the version.
+  # uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9
+      uses: SonarSource/sonarqube-scan-action@v8.3.0
+      env:
+       SONAR_TOKEN: ${{ secrets.SONAR_QUBE }}
+
+
+            
+  # build:
+  #   needs: checkout
+  #   runs-on: ubuntu-latest
     
-    steps:
-      - name: checkuot code
-        uses: actions/checkout@v6.1.0
+  #   steps:
+  #     - name: checkuot code
+  #       uses: actions/checkout@v6.1.0
         
-      - name: Build Docker image
-        run: |
-          docker build . -t abobakryousre/first-app
+  #     - name: Build Docker image
+  #       run: |
+  #         docker build . -t abobakryousre/first-app
+
         
-  UnitTest:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Unit Test
-        run: echo  "running unit test"
+  # UnitTest:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Unit Test
+  #       run: echo  "running unit test"
         
-  IntegratTest:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Unit Test
-        run: echo  "Integration test"
+  # IntegratTest:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Unit Test
+  #       run: echo  "Integration test"
         
-  E2ETest:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Unit Test
-        run: echo  "E2E test"
+  # E2ETest:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Unit Test
+  #       run: echo  "E2E test"
         
-  Release:
-    needs: 
-      - E2ETest
-      - IntegratTest
-      - UnitTest
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkuot code
-        uses: actions/checkout@v6.1.0
+  # Release:
+  #   needs: 
+  #     - E2ETest
+  #     - IntegratTest
+  #     - UnitTest
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: checkuot code
+  #       uses: actions/checkout@v6.1.0
         
-      - name: Build Docker image
-        run: docker build . -t abobakryousre/first-app
-      - name: Release
-        run: |
-          echo ${{ secrets.DOCKERPASSWORD }} | docker login -u abobakryousre@gmail.com --password-stdin
-          docker push abobakryousre/first-app
+  #     - name: Build Docker image
+  #       run: docker build . -t abobakryousre/first-app
+  #     - name: Release
+  #       run: |
+  #         echo ${{ secrets.DOCKERPASSWORD }} | docker login -u abobakryousre@gmail.com --password-stdin
+  #         docker push abobakryousre/first-app

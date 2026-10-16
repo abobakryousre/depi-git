@@ -9,31 +9,33 @@ on:
 
 jobs:
 
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
+  # checkout:
+  #   runs-on: ubuntu-latest
+  #   steps:
     # - name: Checkout Code
     #   uses: actions/checkout@v6.1.0
-    - name: check scout
-      run: docker scout cves --help
+    # - name: check scout
+    #   run: docker scout cves --help
        
-  # build:
-  #   needs: checkout
-  #   runs-on: ubuntu-latest
+  build:
+    # needs: checkout
+    runs-on: ubuntu-latest
     
-  #   steps:
-  #     - name: checkuot code
-  #       uses: actions/checkout@v6.1.0
+    steps:
+      - name: checkuot code
+        uses: actions/checkout@v6.1.0
         
-  #     - name: Build Docker image
-  #       run: |
-  #         docker build . -t abobakryousre/first-app
+      - name: Build Docker image
+        run: |
+          docker build . -t abobakryousre/first-app
           
-  #     - uses: docker/scout-action@v1.26.0    
-  #     - name: Scan Docker Image
-  #       run: |
-  #         echo ${{ secrets.DOCKERPASSWORD }} | docker login -u abobakryousre@gmail.com --password-stdin
-  #         docker scout cves --only-severity critcal,high --exit-code abobakryousre/first-app
+      - uses: docker/scout-action@v1.26.0    
+        with:
+          registry-user: abobakryousry
+          registry-password: ${{ secrets.DOCKERPASSWORD }} 
+      - name: Scan Docker Image
+        run: |
+          docker scout cves --only-severity critcal,high --exit-code abobakryousre/first-app
 
         
   # UnitTest:
